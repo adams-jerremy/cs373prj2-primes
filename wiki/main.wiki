@@ -1,0 +1,22 @@
+#summary Documentation of main.py
+
+= Introduction =
+
+main.py solves the sum of four primes problem according to UVA rules for integers less than 10,000,000.  It utilizes the Goldbach's conjecture and a few optimizations.
+
+
+= Details =
+
+==Functions==
+
+*main()* The main driver program.  Executes read-eval-print loop.
+
+*my_read()* Reads a single integer from stdin.  
+
+*my_eval()* Finds two primes that sum to it's argument.  Argument to my_eval must be even and less than or equal to 10,000,000. 
+
+*print()* Prints four prime integers to stdout that sum to the input. Prints impossible if the input was less than 8. 
+
+*binarySearch()* Searches for an element in a collection using the classic, iterative, in-place, binary search algorithm.
+
+*isPrime()* Tests for primality of argument by searching a cache or by checking the remainder of all primes up to the square root of the argument. 
