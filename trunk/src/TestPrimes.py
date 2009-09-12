@@ -2,12 +2,6 @@
 
 
 
-# To run the tests
-#     TestCollatz.py
-
-# To document the tests
-#     pydoc -w TestCollatz
-
 import main
 import unittest
 
@@ -82,7 +76,13 @@ class TestPrimes (unittest.TestCase) :
         main.p2 = 0
         main.my_eval(main.i-4)
         self.assert_(main.p1 == 5 )
-        self.assert_(main.p2 == 9999991 )            
+        self.assert_(main.p2 == 9999991 )
+    def test_isPrime(self):
+        for x in main.allPrimes:
+            self.assert_(main.isPrime(x))
+        for x in xrange(1,3000):
+            if x not in main.allPrimes:         
+                self.assert_(not main.isPrime(x))
     # -----
     # print
     # -----

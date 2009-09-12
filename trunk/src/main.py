@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 
-# -------------------------------
-# projects/python/collatz/main.py
-# Copyright (C) 2009
-# Glenn P. Downing
-# -------------------------------
 
-# To run the program
-#     main.py < Collatz.in > Collatz.out
-
-# To document the program
-#     pydoc -w main
 
 
 # -------
@@ -73,8 +63,9 @@ class OutputWriter (object) :
 
 def my_read (r) :
     """
-    reads an int into i and j
-    return true if that succeeds, false otherwise
+    reads an int into i
+    @param r - InputReader
+    @return boolean - true if read succeeds, false otherwise
     """
     global i
     try :
@@ -85,15 +76,20 @@ def my_read (r) :
     return True
 
 def isPrime(n) :
+    """
+    Primality tester.  
+    @param n - Number to be tested for primality
+    @return boolean - True if n is prime, False otherwise
+    """
     global allPrimes
     if n==2:
-        return True
+        return True # 2 prime
     if n&1 == 0:
-        return False
+        return False #Evens other than 2 not prime
     if n < 3167 :
-        return binarySearch(n,allPrimes) # return n in allPrimes
+        return binarySearch(n,allPrimes) # if in collection, prime # return n in allPrimes
     limit = int(n**0.5)+1
-    for x in xrange(1,len(allPrimes)):
+    for x in xrange(1,len(allPrimes)): #otherwise, test each prime less than the square root
         if allPrimes[x] > limit:
             break
         if n%allPrimes[x] == 0:
@@ -102,6 +98,11 @@ def isPrime(n) :
     
 
 def binarySearch(x,xs):
+    """
+    Performs a binary search
+    @param x - The value being searched for
+    @param xs - the collection searched
+    """
     end = len(xs)-1
     beg = 0
     while True:
@@ -120,19 +121,17 @@ def binarySearch(x,xs):
 # -------
 
 def my_eval (n) :
-    
     """
-    computes the max cycle length in the range [i, j]
-    and stores the result in v.
-    Uses a cache and bitwise operations for optimized performance
+    Finds the sum of two primes that sum to n.
+    @param n - Integer
     """
     global p1
     global p2
     v = 0
     for x in xrange(0,len(allPrimes)):
-        p1 = allPrimes[x]
-        p2 = n - p1
-        if isPrime(p2):
+        p1 = allPrimes[x] # select first prime
+        p2 = n - p1 # test difference
+        if isPrime(p2): # if difference prime, done
             return
         
             
@@ -143,7 +142,8 @@ def my_eval (n) :
 
 def my_print (w) :
     """
-    writes the values of i, j, and v
+    Prints results in the form "p1 p2 p3 p4" where each pi is a prime number and the sum adds to the input.
+    @param w - OutputWriter 
     """
     w.write(2, (2+(i&1)), p1, p2)
 
@@ -153,9 +153,10 @@ def my_print (w) :
 
 def main () :
     """
-    runs the program
+    Program driver.  Executes a read-eval-print loop to solve the sum of four primes problem.
     """
     global i
+    
     
     while my_read(InputReader()) :
         if i < 8 :
